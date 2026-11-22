@@ -134,16 +134,16 @@ include __DIR__ . '/includes/header.php';
                         <label class="form-label small fw-semibold text-muted text-uppercase mb-2">I want to:</label>
                         <div class="row g-2">
                             <div class="col-6">
-                                <label class="card p-3 border text-center h-100 cursor-pointer role-option-card">
-                                    <input type="radio" name="role" value="guest" class="form-check-input visually-hidden" <?= $selectedRole === 'guest' ? 'checked' : '' ?>>
+                                <label class="card p-3 border text-center h-100 cursor-pointer role-option-card <?= $selectedRole === 'guest' ? 'active-role-card' : '' ?>" for="roleGuest" style="cursor: pointer; transition: all 0.2s ease;">
+                                    <input type="radio" name="role" id="roleGuest" value="guest" class="form-check-input visually-hidden" <?= $selectedRole === 'guest' ? 'checked' : '' ?>>
                                     <i class="fa-solid fa-compass fa-2x mb-2 text-danger"></i>
                                     <div class="fw-bold small">Explore & Book</div>
                                     <div class="text-muted" style="font-size: 11px;">I am a Guest</div>
                                 </label>
                             </div>
                             <div class="col-6">
-                                <label class="card p-3 border text-center h-100 cursor-pointer role-option-card">
-                                    <input type="radio" name="role" value="host" class="form-check-input visually-hidden" <?= $selectedRole === 'host' ? 'checked' : '' ?>>
+                                <label class="card p-3 border text-center h-100 cursor-pointer role-option-card <?= $selectedRole === 'host' ? 'active-role-card' : '' ?>" for="roleHost" style="cursor: pointer; transition: all 0.2s ease;">
+                                    <input type="radio" name="role" id="roleHost" value="host" class="form-check-input visually-hidden" <?= $selectedRole === 'host' ? 'checked' : '' ?>>
                                     <i class="fa-solid fa-house-user fa-2x mb-2 text-primary"></i>
                                     <div class="fw-bold small">Host my Property</div>
                                     <div class="text-muted" style="font-size: 11px;">I am a Host</div>
@@ -192,5 +192,21 @@ include __DIR__ . '/includes/header.php';
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const roleCards = document.querySelectorAll('.role-option-card');
+    roleCards.forEach(function(card) {
+        card.addEventListener('click', function(e) {
+            const radio = card.querySelector('input[type="radio"]');
+            if (radio) {
+                radio.checked = true;
+                roleCards.forEach(c => c.classList.remove('active-role-card'));
+                card.classList.add('active-role-card');
+            }
+        });
+    });
+});
+</script>
 
 <?php include __DIR__ . '/includes/footer.php'; ?>
